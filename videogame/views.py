@@ -14,7 +14,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('welcome')
+            return redirect('welcome', user.id)
         else:
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -101,7 +101,8 @@ def view_users(request):
     context = {'users': users}
     return render(request, 'view_users.html', context)
 
-def welcome(request):
-    context = {'name': 'Mark'}
-    template = 'Welcome.html'
+def welcome(request, id):
+    user = User.objects.get(id=id)
+    context = {'user': user}
+    template = 'Welcome.html/', user.id
     return render(request, template, context)

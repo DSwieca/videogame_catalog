@@ -14,7 +14,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('welcome', user.id)
+            return redirect('welcome')
         else:
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -49,26 +49,6 @@ def register(request):
             return redirect('register')
     else:
         return render(request, 'register.html')
-    '''form = PeopleForm(request.POST or None)
-
-    if form.is_valid():
-        form.save()
-        return redirect('login')
-    else:
-        return render(request, 'register.html', {'form': form})'''
-
-    '''if form.password != form.confirm_Password:
-        messages.info(request, 'Passwords do not match!')
-        return redirect('register')
-    else:
-        if People.objects.filter(user_name=form.user_name).exists():
-            messages.info(request, 'Username is taken, must be unique')
-            return redirect('register')
-        elif form.is_valid():
-            form.save()
-            return redirect('login')
-        else:
-            return render(request, 'register.html', {'form': form})'''
 
 def delete_user(request, id):
     user = User.objects.get(id=id)
@@ -101,8 +81,9 @@ def view_users(request):
     context = {'users': users}
     return render(request, 'view_users.html', context)
 
-def welcome(request, id):
-    user = User.objects.get(id=id)
+def welcome(request):
+    '''user = User.objects.get(id=id)
     context = {'user': user}
-    template = 'Welcome.html/', user.id
-    return render(request, template, context)
+    template = 'Welcome.html/', user.id'''
+    # template = 'Welcome.html'
+    return render(request, 'Welcome.html')

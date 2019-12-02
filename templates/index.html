@@ -2,14 +2,21 @@
 
 
 {% block content %}
-    <a href="{% url 'games' %}">Show Games</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'games' %}">Show Games</a>
 
-   <h1>List of Video Games and Genres</h1>
+       <h1>List of Video Games and Genres</h1>
 
 
-    {% for game in games %}
-        <h4> Game Genre: {{ game.game_genre }}, Game name: {{ game.game_name }}</h4>
-    {% endfor %}
+        {% for game in games %}
+            <h4> Game Genre: {{ game.game_genre }}, Game name: {{ game.game_name }}</h4>
+        {% endfor %}
+
+        {% else %}
+            <script>
+                window.location = {% url 'register' %}
+            </script>
+    {% endif %}
 
 
 {% endblock %}

@@ -8,6 +8,8 @@
 
 {% block content %}
 
+    {% if user.is_authenticated %}
+
         <div class="navbar">
             <a href="#home">Home</a>
             <div class="dropdown">
@@ -32,5 +34,11 @@
         <a href="{% url 'delete' user.id %}">remove user</a>
         <a href="{% url 'update' user.id %}">update user</a>
         <a href="{% url 'logout' %}">log out</a>
+        {% else %}
+            <script>
+                window.location = {% url 'register' %}
+            </script>
+    {% endif %}
+
 
 {% endblock %}
